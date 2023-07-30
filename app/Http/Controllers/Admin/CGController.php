@@ -13,7 +13,7 @@ class CGController extends Controller
     public function view(){
         // TODO: QUERY WITH FILTERS
         $data = CGroups::all()->map(function($cg, $key) {
-            $dates = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            $dates = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             $status = "Onsite";
             $day = $dates[(int) $cg->connect_group_day];
             if($cg->connect_group_status == "1"){
