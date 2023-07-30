@@ -111,7 +111,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.add_member') }}" class="nav-link {{ $nav_active == 'add-member' ? 'active' : '' }}">
+                            <a href="{{ route('admin.view.add_member') }}" class="nav-link {{ $nav_active == 'add-member' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add Member</p>
                             </a>

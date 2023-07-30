@@ -144,8 +144,6 @@
     <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/fullcalendar/main.js') }}"></script>
 
-    @yield('add_on_scripts')
-
     <script>
         toastr.options = {
             "closeButton": false,
@@ -188,7 +186,25 @@
                 }).showToast();
             })
         });
+
+        const successToast = function(message) {
+            Toastify({
+                text: message,
+                duration: 3000,
+                newWindow: true,
+                close: false,
+                gravity: "top",
+                position: "right",
+                stopOnFocus: true,
+                style: {
+                    background: "#28a745",
+                },
+                onClick: function(){}
+            }).showToast();
+        }
     </script>
+
+    @yield('add_on_scripts')
 </body>
 
 </html>

@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class User
+class User extends Authenticatable
 {
     protected $table = "users";
     protected $primaryKey = "user_id";
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
 }

@@ -15,7 +15,7 @@ class CreateTableMemberConnectGroup extends Migration
     {
         Schema::create('member_connect_group', function (Blueprint $table) {
             $table->increments("member_connect_group_id");
-            $table->integer("connect_group_id")->unsigned();
+            $table->integer("connect_group_id")->unsigned()->nullable();
             $table->integer("member_id")->unsigned();
             $table->integer("role_id")->unsigned();
             $table->date("member_connect_group_date_start");

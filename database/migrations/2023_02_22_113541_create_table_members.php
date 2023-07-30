@@ -16,6 +16,7 @@ class CreateTableMembers extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->increments("member_id");
             $table->bigInteger("member_nij")->unique();
+            $table->text("member_fullname");
             $table->boolean("member_is_active")->default(true);
             $table->text("member_birth_place");
             $table->date("member_birth_date");

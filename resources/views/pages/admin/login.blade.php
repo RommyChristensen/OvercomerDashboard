@@ -15,11 +15,18 @@
   <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
 </head>
 <body class="hold-transition login-page">
+
 <div class="login-box">
   <div class="login-logo">
     <a href=""><b>Overcomers</b> Master User</a>
   </div>
   <!-- /.login-logo -->
+  @error(Errors::LOGIN_AUTH_ERROR_KEY)
+    <div class="alert alert-danger alert-dismissible mb-3">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      {{ $message }}
+    </div>
+  @enderror
   <div class="card">
     <div class="card-body login-card-body">
       <form action="{{ route('admin.login') }}" method="post">

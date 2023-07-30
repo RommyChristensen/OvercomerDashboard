@@ -18,7 +18,7 @@ class CreateUsers extends Migration
             $table->text("username");
             $table->text("fullname");
             $table->text("password");
-            $table->integer("member_id")->unsigned();
+            $table->integer("member_id")->unsigned()->nullable();
 
             $table->timestamps();
         });
