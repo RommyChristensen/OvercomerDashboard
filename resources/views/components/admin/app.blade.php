@@ -76,11 +76,58 @@
         .toast-message{
             font-family: 'Calibri';
         }
+
+        .loader {
+            position: absolute;
+            border: 4px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 40px;
+            height: 40px;
+            -webkit-animation: spin 1s linear infinite; /* Safari */
+            animation: spin 1s linear infinite;
+            z-index: 100;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #loading {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            text-align: center;
+            opacity: 0.7;
+            background-color: #fff;
+            z-index: 99;
+        }
+
+        #loading-image {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            z-index: 100;
+        }
     </style>
 
 </head>
 
 <body class="hold-transition sidebar-mini">
+    <div id="loading">
+        <img id="loading-image" src="{{ asset('assets/images/loading-2.gif') }}" alt="Loading..." />
+    </div>
+    
     <div class="wrapper">
         @include('components.admin.navbar')
 
@@ -201,6 +248,50 @@
                 },
                 onClick: function(){}
             }).showToast();
+        }
+
+        const showLoading = isShown => {
+            isShown ? $("#loading").show() : $("#loading").hide();
+        }
+
+        const populateUI = object => {
+            Object.entries(object).forEach(entry => {
+                const [key, value] = entry;
+
+                if($("#"+key)[0].nodeName == "INPUT"){
+                    $("#"+key).val(value);
+                }else if($("#"+key)[0].nodeName == "SELECT"){
+                    $("#"+key).val(value).change();
+                }
+                // console.log($("#"+key)[0].nodeName);
+            });
+        }
+
+        const convertTimeFormat = time => {
+            const [hours, minutes] = time.split(':').map(Number);
+            const meridian = hours >= 12 ? 'PM' : 'AM';
+            const twelveHourFormat = ((hours + 11) % 12) + 1;
+            const paddedMinutes = minutes.toString().padStart(2, '0');
+            const formattedTime = `${twelveHourFormat}:${paddedMinutes} ${meridian}`;
+            return formattedTime;
+        }
+
+        const showConfirmationDialog = (title, message, icon, callbackSuccess, callbackCancel, confirmButtonText = "Yes", cancelButtonText = "No") => {
+            Swal.fire({
+                title: title,
+                text: message,
+                icon: icon,
+                showCancelButton: true,
+                confirmButtonText: confirmButtonText,
+                cancelButtonText: cancelButtonText,
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    callbackSuccess();
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    callbackCancel();
+                }
+            });
         }
     </script>
 

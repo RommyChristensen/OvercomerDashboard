@@ -2,6 +2,7 @@
 
 use App\Errors;
 use App\Success;
+use App\URL;
 
 return [
 
@@ -235,7 +236,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Errors' => Errors::class,
-        'Success' => Success::class
+        'Success' => Success::class,
+        'URL' => URL::class
     ],
 
 ];

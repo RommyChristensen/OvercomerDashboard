@@ -66,6 +66,8 @@ Route::prefix('admin')->group(function () {
         Route::prefix('master_connect_groups')->group(function () {
             Route::get('/', [CGController::class, 'view'])->name('admin.view_connect_groups');
             Route::post('/add', [CGController::class, 'add'])->name("master_connect_groups.add");
+            Route::get('/get_by_id', [CGController::class, 'getById'])->name("master_connect_groups.get_by_id");
+            Route::get('/delete_by_id', [CGController::class, 'destroyById'])->name("master_connect_groups.delete_by_id");
         });
     
         Route::prefix('master_ministy')->group(function () {

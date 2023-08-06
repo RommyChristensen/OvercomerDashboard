@@ -26,7 +26,8 @@ class CGController extends Controller
                 'cg_day' => $day,
                 'cg_time' => $cg->connect_group_time,
                 'cg_location' => $cg->connect_group_location,
-                'cg_number' => $cg->connect_group_number
+                'cg_number' => $cg->connect_group_number,
+                'cg_id' => $cg->connect_group_id
             );
             return (object) $cg;
         });
@@ -42,15 +43,41 @@ class CGController extends Controller
             'cg_location' => 'required',
         ]);
 
-        CGroups::create([
-            'connect_group_number' => $data['cg_number'],
-            'connect_group_status' => $data['cg_status'],
-            'connect_group_time' => $this->convertToStandardTime($data['cg_time']),
-            'connect_group_day' => $data['cg_day'],
-            'connect_group_location' => $data['cg_location'],
-        ]);
+        if($request->cg_id != null){
+            CGroups::where('connect_group_id', $request->cg_id)->update([
+                'connect_group_number' => $data['cg_number'],
+                'connect_group_status' => $data['cg_status'],
+                'connect_group_time' => $this->convertToStandardTime($data['cg_time']),
+                'connect_group_day' => $data['cg_day'],
+                'connect_group_location' => $data['cg_location']
+            ]);
+        }else{
+            CGroups::create([
+                'connect_group_number' => $data['cg_number'],
+                'connect_group_status' => $data['cg_status'],
+                'connect_group_time' => $this->convertToStandardTime($data['cg_time']),
+                'connect_group_day' => $data['cg_day'],
+                'connect_group_location' => $data['cg_location'],
+            ]);
+        }
 
         return redirect()->back()->with(Success::GENERAL_SUCCESS, Success::GENERAL_SUCCESS_MESSAGE);
+    }
+
+    public function getById(Request $request){
+        $data = $request->validate([
+            'cg_number' => 'required'
+        ]);
+
+        return CGroups::where('connect_group_number', $data['cg_number'])->firstOrFail();
+    }
+
+    public function destroyById(Request $request){
+        $data = $request->validate([
+            'cg_id' => 'required'
+        ]);
+
+        return CGroups::where('connect_group_id', $data['cg_id'])->delete();
     }
     
     private function convertToStandardTime($timeStr) {

@@ -59,8 +59,8 @@
                                             <td>{{ $cg->cg_day . ', ' . $cg->cg_time }}</td>
                                             <td>{{ $cg->cg_location }}</td>
                                             <td>
-                                                <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
+                                                <button class="btn btn-xs btn-info btn-edit" onclick="editClick({{$cg->cg_number}})"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-xs btn-danger btn-delete" onclick="deleteClick({{$cg->cg_id}})"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -84,6 +84,7 @@
                 <div class="col-12">
                     <form action="{{ route('master_connect_groups.add') }}" method="POST">
                         @csrf
+                        <input type="hidden" name="cg_id" id="inputCGId">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Add Connect Group</h3>
@@ -116,7 +117,9 @@
                                         @error('cg_status')
                                             is-invalid
                                         @enderror
-                                    " style="width: 100%;" name="cg_status">
+                                    "
+                                    id="inputCGStatus"
+                                    style="width: 100%;" name="cg_status">
                                         <option value="0" selected>Onsite</option>
                                         <option value="1" >Online</option>
                                         <option value="2">Hybrid</option>
@@ -133,6 +136,7 @@
                                             is-invalid
                                         @enderror
                                     "
+                                    id="inputCGDay"
                                     style="width: 100%;" name="cg_day">
                                         <option value="0">Sunday</option>
                                         <option value="1">Monday</option>
@@ -152,7 +156,7 @@
                                 </div> --}}
                                 <div class="form-group">
                                     <label>CG Time</label>
-                                    <div class="input-group date" id="inputCGTime" data-target-input="nearest">
+                                    <div class="input-group date" data-target-input="nearest">
                                         <input type="text"
                                         class="
                                             form-control datetimepicker-input
@@ -160,7 +164,7 @@
                                                 is-invalid
                                             @enderror
                                         "
-                                            data-target="#inputCGTime" placeholder="Enter CG Time" name="cg_time" />
+                                        id="inputCGTime" data-target="#inputCGTime" placeholder="Enter CG Time" name="cg_time" />
                                         <div class="input-group-append" data-target="#inputCGTime"
                                             data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="far fa-clock"></i></div>
@@ -206,6 +210,53 @@
 @enderror
 
 <script>
+    const editClick = id => {
+        showLoading(true);
+        setTimeout(() => {
+            $.ajax({
+                method: 'GET',
+                url: '{{ URL::URL_CG_GET_BY_ID }}',
+                data: { cg_number: id },
+                success: res => {
+                    editState = true;
+                    cgId = res.connect_group_id;
+                    showLoading(false);
+                    populateUI({
+                        inputCGNumber: res.connect_group_number,
+                        inputCGDay: res.connect_group_day,
+                        inputCGTime: convertTimeFormat(res.connect_group_time),
+                        inputLocation: res.connect_group_location,
+                        inputCGStatus: res.connect_group_status,
+                        inputCGId: res.connect_group_id
+                    })
+                },
+                err: err => {
+                    showLoading(false);
+                }
+            })
+        }, parseInt(Math.floor(Math.random() * 3000)));
+    }
+
+    const deleteClick = id => {
+        showConfirmationDialog("Delete Data CG", "Are you sure to delete this data?", "warning",
+        function() {
+            $.ajax({
+                method: 'GET',
+                url: '{{ URL::URL_CG_DESTROY_BY_ID }}',
+                data: { cg_id: id },
+                success: res => {
+                    showLoading(false);
+                    window.location.reload();
+                },
+                err: err => {
+                    showLoading(false);
+                    window.location.reload();
+                }
+            })
+        },
+        function() { });
+    }
+
     $(function () {
         $("#cg-table").DataTable({
             "responsive": true,
