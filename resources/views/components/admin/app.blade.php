@@ -263,7 +263,6 @@
                 }else if($("#"+key)[0].nodeName == "SELECT"){
                     $("#"+key).val(value).change();
                 }
-                // console.log($("#"+key)[0].nodeName);
             });
         }
 

@@ -16,6 +16,7 @@ class CreateTableMembers extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->increments("member_id");
             $table->bigInteger("member_nij")->unique();
+            $table->integer("role_id")->unsigned();
             $table->text("member_fullname");
             $table->boolean("member_is_active")->default(true);
             $table->text("member_birth_place");
@@ -48,6 +49,8 @@ class CreateTableMembers extends Migration
             $table->date("member_tgl_tl");
             $table->text("member_other_remarks");
             $table->timestamps();
+
+            $table->foreign("role_id")->references("role_id")->on("roles");
         });
     }
 
