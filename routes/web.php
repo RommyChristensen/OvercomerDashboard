@@ -40,14 +40,8 @@ Route::prefix('admin')->group(function () {
         });
     
         Route::prefix('master_members')->group(function () {
-            Route::get('/', function () {
-                return view('pages.admin.view_members');
-            })->name('admin.view_members');
-    
-            Route::get('/add', function () {
-                return view('pages.admin.add_member');
-            })->name('admin.view.add_member');
-
+            Route::get('/add', [MemberController::class, 'view_add'])->name('admin.view.add_member');
+            Route::get('/', [MemberController::class, 'view'])->name('admin.view_members');
             Route::post('/add', [MemberController::class, 'add'])->name('master_member.add');
         });
     

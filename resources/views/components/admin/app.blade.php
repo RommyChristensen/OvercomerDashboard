@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/logo_aog_with_bg.jpg') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/overcomers.png') }}">
     <title>{{ config("app.name") }}</title>
 
     @section('view_share')

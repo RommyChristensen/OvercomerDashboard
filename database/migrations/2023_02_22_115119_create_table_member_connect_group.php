@@ -18,8 +18,8 @@ class CreateTableMemberConnectGroup extends Migration
             $table->integer("connect_group_id")->unsigned()->nullable();
             $table->integer("member_id")->unsigned();
             $table->date("member_connect_group_date_start");
-            $table->date("member_connect_group_date_end");
-            $table->boolean("member_connect_group_status");
+            $table->date("member_connect_group_date_end")->nullable();
+            $table->boolean("member_connect_group_status")->default(true);
 
             $table->foreign("connect_group_id")->references("connect_group_id")->on("connect_groups");
             $table->foreign("member_id")->references("member_id")->on("members");

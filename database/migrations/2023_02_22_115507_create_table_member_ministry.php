@@ -18,8 +18,9 @@ class CreateTableMemberMinistry extends Migration
             $table->integer("member_id")->unsigned();
             $table->integer("ministry_id")->unsigned();
             $table->date("member_ministry_date_start");
-            $table->date("member_ministry_date_end");
-            $table->boolean("member_ministry_status");
+            $table->date("member_ministry_date_end")->nullable();
+            $table->boolean("member_ministry_status")->default(true);
+            $table->text("member_ministry_remarks")->nullable();
 
             $table->foreign("member_id")->references("member_id")->on("members");
             $table->foreign("ministry_id")->references("ministry_id")->on("ministries");
