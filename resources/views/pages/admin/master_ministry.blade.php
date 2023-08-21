@@ -67,7 +67,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="cg-table" class="table table-bordered table-striped">
+                            <table id="min-table" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>Ministry Name</th>
@@ -76,30 +76,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Praise and Worship</td>
-                                        <td>Description of Praise and Worship</td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Usher</td>
-                                        <td>Description of Usher</td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Data Ministry</td>
-                                        <td>Description of Data Ministry</td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                    @foreach($ministries as $min)
+                                        <tr>
+                                            <td>{{ $min->ministry_name }}</td>
+                                            <td>{{ $min->ministry_description }}</td>
+                                            <td>
+                                                <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
@@ -125,17 +111,17 @@
 @section('add_on_scripts')
 <script>
     $(function () {
-        $("#cg-table").DataTable({
+        $("#min-table").DataTable({
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
             "buttons": ["copy", "colvis"]
             // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#cg-table_wrapper .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#min-table_wrapper .col-md-6:eq(0)');
 
         //Initialize Select2 Elements
         $('.select2').select2()
-        $('#inputCGTime').datetimepicker({
+        $('#inputMinTime').datetimepicker({
             format: 'LT'
         });
     });

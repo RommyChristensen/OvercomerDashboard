@@ -31,6 +31,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                    <form action="{{ route('master_user.add') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="cg_id" id="inputCGId">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Add User</h3>
@@ -43,7 +46,17 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="inputUsernameUser">Username</label>
-                                <input type="text" class="form-control" id="inputUsernameUser" placeholder="Enter username">
+                                <input type="text" name="user_uname" 
+                                class="
+                                    form-control
+                                    @error('user_uname')
+                                        is-invalid
+                                    @enderror
+                                " 
+                                id="inputUsernameUser" placeholder="Enter username">
+                                @error('user_uname')
+                                    <span id="input-cg_location-error" class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="inputFullNameUser">Full Name</label>
@@ -137,6 +150,11 @@
 @endsection
 
 @section('add_on_scripts')
+
+@if(session()->has(Success::GENERAL_SUCCESS))
+    <script>successToast("{{ session()->get(Success::GENERAL_SUCCESS) }}")</script>
+@enderror
+
 <script>
     $(function () {
         $("#user-table").DataTable({

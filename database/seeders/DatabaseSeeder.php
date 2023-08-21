@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Menu;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Ministry;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -57,6 +58,20 @@ class DatabaseSeeder extends Seeder
             'fullname' => 'Super Admin',
             'password' => Hash::make("superadmin"),
             'member_id' => NULL
+        ]);
+
+        // add ministries
+        Ministry::create([
+            'ministry_name' => "Data Ministry",
+            'ministry_description' => "Description of Data Ministry",
+        ]);
+        Ministry::create([
+            'ministry_name' => "Praise and Worship",
+            'ministry_description' => "Description of Praise and Worship",
+        ]);
+        Ministry::create([
+            'ministry_name' => "Usher",
+            'ministry_description' => "Description of Usher",
         ]);
     }
 }

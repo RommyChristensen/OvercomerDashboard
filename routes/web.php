@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CGController;
 use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\MinistryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,14 +36,24 @@ Route::prefix('admin')->group(function () {
         })->name('admin.dashboard');
     
         Route::prefix('master_user')->group(function () {
-            Route::get('/', function () {
-                return view('pages.admin.master_user');
-            })->name('admin.view_user');
+            // Route::get('/', function () {
+            //     return view('pages.admin.master_user');
+            // })->name('admin.view_user');
+            Route::get('/', [UserController::class, 'view'])->name('admin.view_user');
+            Route::post('/add', [UserController::class, 'add'])->name("master_user.add");
+            Route::get('/get_by_id', [UserController::class, 'getById'])->name("master_user.get_by_id");
+            Route::get('/delete_by_id', [UserController::class, 'destroyById'])->name("master_user.delete_by_id");
         });
     
         Route::prefix('master_members')->group(function () {
-            Route::get('/add', [MemberController::class, 'view_add'])->name('admin.view.add_member');
-            Route::get('/', [MemberController::class, 'view'])->name('admin.view_members');
+            Route::get('/', function () {
+                return view('pages.admin.view_members');
+            })->name('admin.view_members');
+    
+            Route::get('/add', function () {
+                return view('pages.admin.add_member');
+            })->name('admin.view.add_member');
+
             Route::post('/add', [MemberController::class, 'add'])->name('master_member.add');
         });
     
@@ -65,9 +77,10 @@ Route::prefix('admin')->group(function () {
         });
     
         Route::prefix('master_ministy')->group(function () {
-            Route::get('/', function () {
-                return view('pages.admin.master_ministry');
-            })->name('admin.view_ministry');
+            // Route::get('/', function () {
+            //     return view('pages.admin.master_ministry');
+            // })->name('admin.view_ministry');
+            Route::get('/', [MinistryController::class, 'view'])->name('admin.view_ministry');
         });
     
         Route::prefix('master_roles')->group(function () {
