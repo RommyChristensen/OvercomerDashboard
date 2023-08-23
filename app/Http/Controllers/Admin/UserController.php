@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
 use App\Success;
 use DateTime;
 use Illuminate\Http\Request;
@@ -12,14 +13,12 @@ class UserController extends Controller
 {
     public function view(){
         // TODO: QUERY WITH FILTERS
+        $role_name = "CGL";
         $data = User::all()->map(function($users, $key) {
             $users = array(
-                'cg_status' => $status,
-                'cg_day' => $day,
-                'cg_time' => $users->connect_group_time,
-                'cg_location' => $users->connect_group_location,
-                'cg_number' => $users->connect_group_number,
-                'user_id' => $users->connect_group_id
+                'username' => $users->username,
+                'fullname' => $users->fullname,
+                'user_role' => "CGL"
             );
             return (object) $users;
         });

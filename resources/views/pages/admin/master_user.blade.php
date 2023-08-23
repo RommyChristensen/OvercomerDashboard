@@ -46,15 +46,15 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="inputUsernameUser">Username</label>
-                                <input type="text" name="user_uname" 
+                                <input type="text" name="username" 
                                 class="
                                     form-control
-                                    @error('user_uname')
+                                    @error('username')
                                         is-invalid
                                     @enderror
                                 " 
                                 id="inputUsernameUser" placeholder="Enter username">
-                                @error('user_uname')
+                                @error('username')
                                     <span id="input-cg_location-error" class="error invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>

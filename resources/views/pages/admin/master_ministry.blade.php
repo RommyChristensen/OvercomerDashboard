@@ -31,28 +31,32 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Add Ministry</h3>
-                            <div class="card-tools">
-                                <!-- Collapse Button -->
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <form action="{{ route('master_ministy.add') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="ministry_id" id="inputMinistryId">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Add Ministry</h3>
+                                <div class="card-tools">
+                                    <!-- Collapse Button -->
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                </div>
                             </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="inputMinistryName">Ministry Name</label>
+                                    <input type="text" class="form-control" id="inputMinistryName" placeholder="Enter Ministry Name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Ministry Description</label>
+                                    <textarea class="form-control" rows="3" placeholder="Description of this ministry..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-sm">Add&nbsp;&nbsp;<i class="fas fa-plus"></i></button>
+                            </div>
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="inputMinistryName">Ministry Name</label>
-                                <input type="text" class="form-control" id="inputMinistryName" placeholder="Enter Ministry Name">
-                            </div>
-                            <div class="form-group">
-                                <label>Ministry Description</label>
-                                <textarea class="form-control" rows="3" placeholder="Description of this ministry..."></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-success btn-sm">Add&nbsp;&nbsp;<i class="fas fa-plus"></i></button>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="row">

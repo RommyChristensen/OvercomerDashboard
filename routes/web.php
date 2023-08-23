@@ -81,6 +81,7 @@ Route::prefix('admin')->group(function () {
             //     return view('pages.admin.master_ministry');
             // })->name('admin.view_ministry');
             Route::get('/', [MinistryController::class, 'view'])->name('admin.view_ministry');
+            Route::post('/add', [MinistryController::class, 'add'])->name("master_ministy.add");
         });
     
         Route::prefix('master_roles')->group(function () {
