@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MinistryController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -56,7 +57,7 @@ Route::prefix('admin')->group(function () {
 
             Route::post('/add', [MemberController::class, 'add'])->name('master_member.add');
         });
-        
+
         Route::prefix('master_connect_groups')->group(function () {
             Route::get('/', [CGController::class, 'view'])->name('admin.view_connect_groups');
             Route::post('/add', [CGController::class, 'add'])->name("master_connect_groups.add");
@@ -70,9 +71,9 @@ Route::prefix('admin')->group(function () {
         });
     
         Route::prefix('master_roles')->group(function () {
-            Route::get('/', function () {
-                return view('pages.admin.master_roles');
-            })->name('admin.view_roles');
+            Route::get('/', [RoleController::class, 'view'])->name('admin.view_roles');
+            Route::post('/add', [RoleController::class, 'add'])->name("master_role.add");
+            Route::post('/delete_by_id', [RoleController::class, 'destroyById'])->name("master_role.delete_by_id");
         });
     });
 });

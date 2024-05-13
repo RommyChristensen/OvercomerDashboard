@@ -241,7 +241,7 @@
         showConfirmationDialog("Delete Data CG", "Are you sure to delete this data?", "warning",
         function() {
             $.ajax({
-                method: 'GET',
+                method: 'POST',
                 url: '{{ URL::URL_CG_DESTROY_BY_ID }}',
                 data: { cg_id: id },
                 success: res => {

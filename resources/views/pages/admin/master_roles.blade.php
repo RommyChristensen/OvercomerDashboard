@@ -31,121 +31,124 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Add Role</h3>
-                            <div class="card-tools">
-                                <!-- Collapse Button -->
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <form action="{{ route('master_role.add') }}" method="POST">
+                        @csrf
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Add Role</h3>
+                                <div class="card-tools">
+                                    <!-- Collapse Button -->
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                                </div>
                             </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="inputRoleName">Role Name</label>
+                                    <input type="text" class="form-control" id="inputRoleName" name="role_name" placeholder="Enter Role Name">
+                                </div>
+                                {{-- <div class="form-group">
+                                    <label>Privileges</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="callout callout-info">
+                                            <h6 clas="mb-1"><b>Master Member</b></h6>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxMM1">
+                                                <label for="checkBoxMM1">
+                                                    Add Member
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxMM2">
+                                                <label for="checkBoxMM2">
+                                                    Edit Member
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxMM3">
+                                                <label for="checkBoxMM3">
+                                                    Delete Member
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxMM4">
+                                                <label for="checkBoxMM4">
+                                                    View Member
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="callout callout-warning">
+                                            <h6 clas="mb-1"><b>Master Connect Group</b></h6>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxCG1">
+                                                <label for="checkBoxCG1">
+                                                    Add Connect Group
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxCG2">
+                                                <label for="checkBoxCG2">
+                                                    Edit Connect Group
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxCG3">
+                                                <label for="checkBoxCG3">
+                                                    Delete Connect Group
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxCG4">
+                                                <label for="checkBoxCG4">
+                                                    View Connect Group
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="callout callout-success">
+                                            <h6 clas="mb-1"><b>Master Ministries</b></h6>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxM1">
+                                                <label for="checkBoxM1">
+                                                    Add Ministry
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxM2">
+                                                <label for="checkBoxM2">
+                                                    Edit Ministry
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxM3">
+                                                <label for="checkBoxM3">
+                                                    Delete Ministry
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary">
+                                                <input type="checkbox" id="checkBoxM4">
+                                                <label for="checkBoxM4">
+                                                    View Ministry
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+    
+                                    </div>
+                                </div> --}}
+                                <button type="submit" class="btn btn-success btn-sm">Add&nbsp;&nbsp;<i class="fas fa-plus"></i></button>
+                            </div>
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label for="inputRoleName">Role Name</label>
-                                <input type="text" class="form-control" id="inputRoleName" placeholder="Enter Role Name">
-                            </div>
-                            {{-- <div class="form-group">
-                                <label>Privileges</label>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="callout callout-info">
-                                        <h6 clas="mb-1"><b>Master Member</b></h6>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxMM1">
-                                            <label for="checkBoxMM1">
-                                                Add Member
-                                            </label>
-                                        </div>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxMM2">
-                                            <label for="checkBoxMM2">
-                                                Edit Member
-                                            </label>
-                                        </div>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxMM3">
-                                            <label for="checkBoxMM3">
-                                                Delete Member
-                                            </label>
-                                        </div>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxMM4">
-                                            <label for="checkBoxMM4">
-                                                View Member
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="callout callout-warning">
-                                        <h6 clas="mb-1"><b>Master Connect Group</b></h6>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxCG1">
-                                            <label for="checkBoxCG1">
-                                                Add Connect Group
-                                            </label>
-                                        </div>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxCG2">
-                                            <label for="checkBoxCG2">
-                                                Edit Connect Group
-                                            </label>
-                                        </div>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxCG3">
-                                            <label for="checkBoxCG3">
-                                                Delete Connect Group
-                                            </label>
-                                        </div>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxCG4">
-                                            <label for="checkBoxCG4">
-                                                View Connect Group
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="callout callout-success">
-                                        <h6 clas="mb-1"><b>Master Ministries</b></h6>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxM1">
-                                            <label for="checkBoxM1">
-                                                Add Ministry
-                                            </label>
-                                        </div>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxM2">
-                                            <label for="checkBoxM2">
-                                                Edit Ministry
-                                            </label>
-                                        </div>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxM3">
-                                            <label for="checkBoxM3">
-                                                Delete Ministry
-                                            </label>
-                                        </div>
-                                        <div class="icheck-primary">
-                                            <input type="checkbox" id="checkBoxM4">
-                                            <label for="checkBoxM4">
-                                                View Ministry
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-
-                                </div>
-                            </div> --}}
-                            <button type="submit" class="btn btn-success btn-sm">Add&nbsp;&nbsp;<i class="fas fa-plus"></i></button>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="row">
@@ -164,21 +167,23 @@
                                 <thead>
                                     <tr>
                                         <th>Role Name</th>
-                                        <th>Member Privileges</th>
-                                        <th>Connect Group Privileges</th>
-                                        <th>Ministry Privileges</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    @foreach ($roles as $role)
+                                        <tr>
+                                            <td>{{ $role->role_name }}</td>
+                                            <td>
+                                                <button class="btn btn-xs btn-info btn-edit"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-xs btn-danger btn-delete" onclick="deleteClick({{$role->role_id}})"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>Role Name</th>
-                                        <th>Member Privileges</th>
-                                        <th>Connect Group Privileges</th>
-                                        <th>Ministry Privileges</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -198,6 +203,26 @@
 
 @section('add_on_scripts')
 <script>
+    const deleteClick = id => {
+        showConfirmationDialog("Delete Data Role", "Are you sure to delete this data?", "warning",
+        function() {
+            $.ajax({
+                method: 'POST',
+                url: '{{ URL::URL_ROLE_DESTROY_BY_ID }}',
+                data: { role_id: id },
+                success: res => {
+                    showLoading(false);
+                    window.location.reload();
+                },
+                err: err => {
+                    showLoading(false);
+                    window.location.reload();
+                }
+            })
+        },
+        function() { });
+    }
+
     $(function () {
         $("#role-table").DataTable({
             "responsive": true,
