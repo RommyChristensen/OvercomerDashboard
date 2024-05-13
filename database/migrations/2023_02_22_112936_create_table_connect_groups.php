@@ -16,7 +16,7 @@ class CreateTableConnectGroups extends Migration
         Schema::create('connect_groups', function (Blueprint $table) {
             $table->increments("connect_group_id");
             $table->integer("connect_group_number");
-            $table->boolean("connect_group_status");
+            $table->integer("connect_group_status");
             $table->time("connect_group_time");
             $table->text("connect_group_day");
             $table->text("connect_group_location");

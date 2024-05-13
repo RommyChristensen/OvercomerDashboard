@@ -66,9 +66,11 @@
                                         <div class="form-group">
                                             <label>Connect Group</label>
                                             <select class="form-control select2" style="width: 100%;" name="connect_group">
-                                                @foreach ($cg as $c)
-                                                    <option value="{{$c['connect_group_id']}}">CG {{ $c['connect_group_number'] }}</option>
-                                                @endforeach
+                                                @isset($cg)
+                                                    @foreach ($cg as $c)
+                                                        <option value="{{$c['connect_group_id']}}">CG {{ $c['connect_group_number'] }}</option>
+                                                    @endforeach
+                                                @endisset
                                             </select>
                                         </div>
                                     </div>
@@ -135,11 +137,13 @@
                                         <div class="form-group">
                                             <label>Role</label>
                                             <select class="form-control select2" style="width: 100%;" name="role">
-                                                @foreach ($roles as $r)
-                                                    @if ($r['role_id'] > 1)
-                                                        <option value="{{$r['role_id']}}">{{ $r['role_name'] }}</option>
-                                                    @endif
-                                                @endforeach
+                                                @isset($roles)
+                                                    @foreach ($roles as $r)
+                                                        @if ($r['role_id'] > 1)
+                                                            <option value="{{$r['role_id']}}">{{ $r['role_name'] }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                @endisset
                                             </select>
                                         </div>
                                     </div>
@@ -273,9 +277,11 @@
                                         <div class="form-group">
                                             <label>Ministry</label>
                                             <select class="form-control select2" style="width: 100%;" name="ministry">
-                                                @foreach ($ministries as $m)
-                                                    <option value="{{$m['ministry_id']}}">{{ $m['ministry_name'] }}</option>
-                                                @endforeach
+                                                @isset($ministries)
+                                                    @foreach ($ministries as $m)
+                                                        <option value="{{$m['ministry_id']}}">{{ $m['ministry_name'] }}</option>
+                                                    @endforeach
+                                                @endisset
                                             </select>
                                         </div>
                                     </div>
