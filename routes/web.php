@@ -56,19 +56,7 @@ Route::prefix('admin')->group(function () {
 
             Route::post('/add', [MemberController::class, 'add'])->name('master_member.add');
         });
-    
-        Route::prefix('master_team_leaders')->group(function () {
-            Route::get('/', function () {
-                return view('pages.admin.master_team_leaders');
-            })->name('admin.view_team_leaders');
-        });
-    
-        Route::prefix('master_coaches')->group(function () {
-            Route::get('/', function () {
-                return view('pages.admin.master_coaches');
-            })->name('admin.view_coaches');
-        });
-    
+        
         Route::prefix('master_connect_groups')->group(function () {
             Route::get('/', [CGController::class, 'view'])->name('admin.view_connect_groups');
             Route::post('/add', [CGController::class, 'add'])->name("master_connect_groups.add");
@@ -77,9 +65,6 @@ Route::prefix('admin')->group(function () {
         });
     
         Route::prefix('master_ministy')->group(function () {
-            // Route::get('/', function () {
-            //     return view('pages.admin.master_ministry');
-            // })->name('admin.view_ministry');
             Route::get('/', [MinistryController::class, 'view'])->name('admin.view_ministry');
             Route::post('/add', [MinistryController::class, 'add'])->name("master_ministy.add");
         });

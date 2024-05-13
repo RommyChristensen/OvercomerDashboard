@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 class CGController extends Controller
 {
     public function view(){
-        // TODO: QUERY WITH FILTERS
         $data = CGroups::all()->map(function($cg, $key) {
             $dates = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             $status = "Onsite";

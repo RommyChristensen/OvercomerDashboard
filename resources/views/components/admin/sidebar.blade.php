@@ -71,7 +71,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.view_team_leaders') }}" class="nav-link {{ $nav_active == 'view-team-leaders' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-crown"></i>
                         <p>
@@ -86,7 +86,7 @@
                             Master Coaches
                         </p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('admin.view_connect_groups') }}" class="nav-link {{ $nav_active == 'view-connect-groups' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-house-user"></i>

@@ -45,7 +45,7 @@
                                 <label for="inputRoleName">Role Name</label>
                                 <input type="text" class="form-control" id="inputRoleName" placeholder="Enter Role Name">
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Privileges</label>
                             </div>
                             <div class="row">
@@ -141,7 +141,7 @@
                                 <div class="col-md-6">
 
                                 </div>
-                            </div>
+                            </div> --}}
                             <button type="submit" class="btn btn-success btn-sm">Add&nbsp;&nbsp;<i class="fas fa-plus"></i></button>
                         </div>
                         <!-- /.card-body -->
@@ -171,81 +171,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Team Leader</td>
-                                        <td>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                        </td>
-                                        <td>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                        </td>
-                                        <td>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Coach</td>
-                                        <td>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                        </td>
-                                        <td>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                        </td>
-                                        <td>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>CG Leader</td>
-                                        <td>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                        </td>
-                                        <td>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                        </td>
-                                        <td>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                            <i class="fas fa-check"></i>
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                                 <tfoot>
                                     <tr>
