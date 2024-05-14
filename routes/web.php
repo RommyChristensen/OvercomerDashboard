@@ -72,8 +72,10 @@ Route::prefix('admin')->group(function () {
     
         Route::prefix('master_roles')->group(function () {
             Route::get('/', [RoleController::class, 'view'])->name('admin.view_roles');
+            Route::get('/get_by_id', [RoleController::class, 'getById'])->name("master_role.get_by_id");
             Route::post('/add', [RoleController::class, 'add'])->name("master_role.add");
             Route::post('/delete_by_id', [RoleController::class, 'destroyById'])->name("master_role.delete_by_id");
+            Route::post('/update_by_id', [RoleController::class, 'updateById'])->name("master_role.udpate_by_id");
         });
     });
 });

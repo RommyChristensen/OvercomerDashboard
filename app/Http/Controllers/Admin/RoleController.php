@@ -44,7 +44,24 @@ class RoleController extends Controller
         return redirect()->back()->with(Success::GENERAL_SUCCESS, Success::GENERAL_SUCCESS_MESSAGE); 
     }
 
-    public function update(Request $request, $id) {
+    public function updateById(Request $request) {
+        $data = $request->validate([
+            'role_name' => 'required',
+            'role_id' => 'required'
+        ]);
 
+        $role = Role::find($data['role_id']);
+        $role->role_name = $data['role_name'];
+        $role->save();
+
+        return redirect()->back()->with(Success::GENERAL_SUCCESS, Success::GENERAL_SUCCESS_MESSAGE);
+    }
+
+    public function getById(Request $request) {
+        $data = $request->validate([
+            'role_id' => 'required'
+        ]);
+
+        return Role::where('role_id', $data['role_id'])->firstOrFail();
     }
 }

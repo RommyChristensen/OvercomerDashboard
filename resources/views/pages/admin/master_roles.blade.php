@@ -31,7 +31,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <form action="{{ route('master_role.add') }}" method="POST">
+                    <form>
                         @csrf
                         <div class="card">
                             <div class="card-header">
@@ -43,6 +43,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                <input type="hidden" name="role_id" id="inputRoleId">
                                 <div class="form-group">
                                     <label for="inputRoleName">Role Name</label>
                                     <input type="text" class="form-control" id="inputRoleName" name="role_name" placeholder="Enter Role Name">
@@ -144,7 +145,8 @@
     
                                     </div>
                                 </div> --}}
-                                <button type="submit" class="btn btn-success btn-sm">Add&nbsp;&nbsp;<i class="fas fa-plus"></i></button>
+                                <button id="btnSave" type="submit" formaction="{{ route('master_role.add') }}" formmethod="POST" class="btn btn-success btn-sm">Save&nbsp;&nbsp;<i class="fas fa-save"></i></button>
+                                <button id="btnEdit" type="submit" formaction="{{ route('master_role.udpate_by_id') }}" formmethod="POST" class="btn btn-success btn-sm">Save&nbsp;&nbsp;<i class="fas fa-save"></i></button>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -175,7 +177,7 @@
                                         <tr>
                                             <td>{{ $role->role_name }}</td>
                                             <td>
-                                                <button class="btn btn-xs btn-info btn-edit"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-xs btn-info btn-edit" onclick="editClick({{$role->role_id}})"><i class="fas fa-edit"></i></button>
                                                 <button class="btn btn-xs btn-danger btn-delete" onclick="deleteClick({{$role->role_id}})"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
@@ -203,6 +205,12 @@
 
 @section('add_on_scripts')
 <script>
+    let currentEditId = null;
+
+    $(document).ready(function() {
+        $("#btnEdit").hide();
+    })
+
     const deleteClick = id => {
         showConfirmationDialog("Delete Data Role", "Are you sure to delete this data?", "warning",
         function() {
@@ -212,7 +220,6 @@
                 data: { role_id: id },
                 success: res => {
                     showLoading(false);
-                    window.location.reload();
                 },
                 err: err => {
                     showLoading(false);
@@ -221,6 +228,33 @@
             })
         },
         function() { });
+    }
+
+    const editClick = id => {
+        showLoading(true);
+        setTimeout(() => {
+            $.ajax({
+                method: 'GET',
+                url: '{{ URL::URL_ROLE_GET_BY_ID }}',
+                data: { role_id: id },
+                success: res => {
+                    editState = true;
+                    currentEditId = id;
+                    showLoading(false);
+                    $("#btnEdit").show();
+                    $("#btnSave").hide();
+                    
+                    console.log("roles: " + res)
+                    populateUI({
+                        inputRoleId: id,
+                        inputRoleName: res.role_name
+                    })
+                },
+                err: err => {
+                    showLoading(false);
+                }
+            })
+        }, parseInt(Math.floor(Math.random() * 3000)));
     }
 
     $(function () {
