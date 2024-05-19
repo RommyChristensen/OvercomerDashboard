@@ -266,6 +266,10 @@
             });
         }
 
+        const reloadPage = () => {
+            window.location.reload();
+        }
+
         const convertTimeFormat = time => {
             const [hours, minutes] = time.split(':').map(Number);
             const meridian = hours >= 12 ? 'PM' : 'AM';

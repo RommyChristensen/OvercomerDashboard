@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CGController;
 use App\Http\Controllers\Admin\MemberController;
+use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MinistryController;
@@ -76,6 +77,12 @@ Route::prefix('admin')->group(function () {
             Route::post('/add', [RoleController::class, 'add'])->name("master_role.add");
             Route::post('/delete_by_id', [RoleController::class, 'destroyById'])->name("master_role.delete_by_id");
             Route::post('/update_by_id', [RoleController::class, 'updateById'])->name("master_role.udpate_by_id");
+        });
+
+        Route::prefix('master_menus')->group(function () {
+            Route::get('/', [MenuController::class, 'index'])->name('admin.view_menus');
+            Route::get('/get_by_role_id', [MenuController::class, 'getByRoleId'])->name('master_menu.get_by_role_id');
+            Route::post('/add', [MenuController::class, 'store'])->name('master_menu.add');
         });
     });
 });

@@ -64,6 +64,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.view_menus') }}" class="nav-link {{ $nav_active == 'view-menus' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-bars"></i>
+                        <p>
+                            Master Privileges
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.view_ministry') }}" class="nav-link {{ $nav_active == 'view-ministry' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-place-of-worship"></i>
                         <p>

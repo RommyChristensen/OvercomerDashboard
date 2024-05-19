@@ -9,5 +9,8 @@ class URL {
     const URL_ROLE_DESTROY_BY_ID = "/admin/master_roles/delete_by_id";
     const URL_ROLE_UPDATE_BY_ID = "/admin/master_roles/update_by_id";
     const URL_ROLE_GET_BY_ID = "/admin/master_roles/get_by_id";
+
+    const URL_GET_PRIVILEGE_BY_ROLE_ID = "/admin/master_menus/get_by_role_id";
+    const URL_ADD_NEW_MENU = "/admin/master_menus/add";
 }
 
