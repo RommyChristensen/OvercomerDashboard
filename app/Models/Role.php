@@ -12,4 +12,8 @@ class Role extends Model
     protected $primaryKey = "role_id";
 
     protected $guarded = [];
+
+    public function member() {
+        return $this->hasOne(Member::class, 'role_id', 'role_id');
+    }
 }

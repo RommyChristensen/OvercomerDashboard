@@ -38,9 +38,6 @@ Route::prefix('admin')->group(function () {
         })->name('admin.dashboard');
     
         Route::prefix('master_user')->group(function () {
-            // Route::get('/', function () {
-            //     return view('pages.admin.master_user');
-            // })->name('admin.view_user');
             Route::get('/', [UserController::class, 'view'])->name('admin.view_user');
             Route::post('/add', [UserController::class, 'add'])->name("master_user.add");
             Route::get('/get_by_id', [UserController::class, 'getById'])->name("master_user.get_by_id");
@@ -48,15 +45,13 @@ Route::prefix('admin')->group(function () {
         });
     
         Route::prefix('master_members')->group(function () {
-            Route::get('/', function () {
-                return view('pages.admin.view_members');
-            })->name('admin.view_members');
+            Route::get('/', [MemberController::class, 'view'])->name('admin.view_members');
     
-            Route::get('/add', function () {
-                return view('pages.admin.add_member');
-            })->name('admin.view.add_member');
+            Route::get('/add', [MemberController::class, 'view_add'])->name('admin.view.add_member');
 
             Route::post('/add', [MemberController::class, 'add'])->name('master_member.add');
+
+            Route::get('/edit/{member}', [MemberController::class, 'view_edit'])->name('master_member.edit');
         });
 
         Route::prefix('master_connect_groups')->group(function () {
@@ -83,6 +78,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/', [MenuController::class, 'index'])->name('admin.view_menus');
             Route::get('/get_by_role_id', [MenuController::class, 'getByRoleId'])->name('master_menu.get_by_role_id');
             Route::post('/add', [MenuController::class, 'store'])->name('master_menu.add');
+            Route::post('/destroy', [MenuController::class, 'destroy'])->name('master_menu.destroy');
         });
     });
 });

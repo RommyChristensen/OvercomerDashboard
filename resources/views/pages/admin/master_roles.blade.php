@@ -177,7 +177,6 @@
                                         <tr>
                                             <td>{{ $role->role_name }}</td>
                                             <td>
-                                                <a class="btn btn-xs btn-success btn-add" href=""><i class="fas fa-eye"></i></a>
                                                 <button class="btn btn-xs btn-info btn-edit" onclick="editClick({{$role->role_id}})"><i class="fas fa-edit"></i></button>
                                                 <button class="btn btn-xs btn-danger btn-delete" onclick="deleteClick({{$role->role_id}})"><i class="fas fa-trash"></i></button>
                                             </td>

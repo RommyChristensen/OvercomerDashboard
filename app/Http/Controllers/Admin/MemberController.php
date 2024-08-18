@@ -14,15 +14,17 @@ use Illuminate\Http\Request;
 class MemberController extends Controller
 {
     public function view(){
-        $cgs = CGroups::all();
         $role = Role::all();
-        return view('pages.admin.view_members', ['roles' => $role, 'cg' => $cgs]);
+        $members = Member::with('connect_group')->with('ministries')->get();
+
+        return view('pages.admin.view_members', ['roles' => $role, 'members' => $members]);
     }
 
     public function view_add(){
         $cgs = CGroups::all();
         $role = Role::all();
         $ministries = Ministry::all();
+
         return view('pages.admin.add_member', ['roles' => $role, 'cg' => $cgs, 'ministries' => $ministries]);
     }
 
@@ -96,5 +98,26 @@ class MemberController extends Controller
 
     private function formatDate($val){
         return date_format(date_create($val), 'Y-m-d');
+    }
+
+    public function view_edit(Member $member) {
+        $cgs = CGroups::all();
+        $role = Role::all();
+        $ministries = Ministry::all();
+
+        return view('pages.admin.add_member', [
+            'member' => $member,
+            'edit_mode' => true,
+            'roles' => $role,
+            'cg' => $cgs,
+            'ministries' => $ministries
+        ]);
+
+        /*
+            1 Member -> 1 CG
+            1 CG -> X Member
+            Member -> CG
+            Many to One
+        */
     }
 }

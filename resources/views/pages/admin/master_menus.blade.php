@@ -59,6 +59,7 @@
                                             <th>Menu Id</th>
                                             <th>Menu Display Name</th>
                                             <th>Menu Link</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="menu-role-body">
@@ -67,6 +68,7 @@
                                                 <td>{{ $privilege->menu_id }}</td>
                                                 <td>{{ $privilege->menu_display_name }}</td>
                                                 <td>{{ $privilege->menu_link }}</td>
+                                                <td><button class="btn btn-xs btn-info btn-danger" type="button" onclick="deleteClick({{$privilege->privilege_id}})"><i class="fas fa-trash"></i></button></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -75,21 +77,28 @@
                                             <th>Menu Id</th>
                                             <th>Menu Display Name</th>
                                             <th>Menu Link</th>
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                 </table>
                                 <hr>
                                 <div class="form-group">
                                     <label for="inputPrivilegeName">Privilege Name</label>
-                                    <input type="text" class="form-control" id="inputPrivilegeName" name="privilege_name" placeholder="Enter Privilege Name">
+                                    <input type="text" class="form-control @error('privilege_name') is-invalid @enderror" id="inputPrivilegeName" name="privilege_name" placeholder="Enter Privilege Name">
+                                    @error('privilege_name')
+                                        <span id="input-full_name-error" class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label>List Menu</label>
-                                    <select class="form-control select2" style="width: 100%;" name="menu_id" id="list-menu">
+                                    <select class="form-control select2 @error('menu_id') is-invalid @enderror" style="width: 100%;" name="menu_id" id="list-menu">
                                         @foreach ($menu_available as $menu)
                                             <option value="{{ $menu->menu_id }}">{{ $menu->menu_display_name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('menu_id')
+                                        <span id="input-full_name-error" class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <button id="btnSave" type="submit" formaction="{{ route('master_menu.add') }}" formmethod="POST" class="btn btn-success btn-sm">Save&nbsp;&nbsp;<i class="fas fa-save"></i></button>
                             </div>
@@ -206,29 +215,42 @@
                     reloadPage();
                 }
             })
-        })
+        });
+
+        $(function () {
+            $("#role-table").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "colvis"]
+                // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#role-table_wrapper .col-md-6:eq(0)');
+
+            //Initialize Select2 Elements
+            $('.select2').select2()
+        });
     })
 
     const deleteClick = id => {
-        showConfirmationDialog("Delete Data Role", "Are you sure to delete this data?", "warning",
-        function() {
-            $.ajax({
-                method: 'POST',
-                url: '{{ URL::URL_ROLE_DESTROY_BY_ID }}',
-                data: {
-                    role_id: id,
-                    _token: "{{ csrf_token() }}"
-                },
-                success: res => {
-                    showLoading(false);
-                    reloadPage();
-                },
-                err: err => {
-                    showLoading(false);
-                    reloadPage();
-                }
-            })
-        },
+        showConfirmationDialog("Delete Data Privilege", "Are you sure to delete this data?", "warning",
+            function() {
+                $.ajax({
+                    method: 'POST',
+                    url: '{{ URL::URL_DESTROY_PRIVILEGE }}',
+                    data: {
+                        privilege_id: id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: res => {
+                        showLoading(false);
+                        reloadPage();
+                    },
+                    err: err => {
+                        showLoading(false);
+                        reloadPage();
+                    }
+                })
+            },
         function() { });
     }
 
@@ -258,18 +280,5 @@
             })
         }, parseInt(Math.floor(Math.random() * 3000)));
     }
-
-    $(function () {
-        $("#role-table").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": ["copy", "colvis"]
-            // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#role-table_wrapper .col-md-6:eq(0)');
-
-        //Initialize Select2 Elements
-        $('.select2').select2()
-    });
 </script>
 @endsection

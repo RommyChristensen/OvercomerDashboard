@@ -76,78 +76,45 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>10050</td>
-                                        <td>CG 77</td>
-                                        <td>Rommy Christensen</td>
-                                        <td>Aktif</td>
-                                        <td>Tanjung Duren</td>
-                                        <td>087884914473</td>
-                                        <td>
-                                            <i class="fas fa-check"></i> CGT 1 <i class="fas fa-check"></i> MSJ 1 <br>
-                                            <i class="fas fa-check"></i> CGT 2 <i class="fas fa-check"></i> MSJ 2 <br>
-                                            <i class="fas fa-check"></i> CGT 3 <i class="fas fa-check"></i> MSJ 3 <br>
-                                        </td>
-                                        <td>
-                                            <i class="fas fa-check"></i> CGT 1 <i class="fas fa-check"></i> MSJ 1 <br>
-                                            <i class="fas fa-check"></i> CGT 2 <i class="fas fa-check"></i> MSJ 2 <br>
-                                            <i class="fas fa-check"></i> CGT 3 <i class="fas fa-check"></i> MSJ 3 <br>
-                                        </td>
-                                        <td>Praise and Worship</td>
-                                        <td>Anak ini agak bandel</td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>10050</td>
-                                        <td>CG 77</td>
-                                        <td>Rommy Christensen</td>
-                                        <td>Aktif</td>
-                                        <td>Tanjung Duren</td>
-                                        <td>087884914473</td>
-                                        <td>
-                                            <i class="fas fa-check"></i> CGT 1 <i class="fas fa-check"></i> MSJ 1 <br>
-                                            <i class="fas fa-check"></i> CGT 2 <i class="fas fa-check"></i> MSJ 2 <br>
-                                            <i class="fas fa-check"></i> CGT 3 <i class="fas fa-check"></i> MSJ 3 <br>
-                                        </td>
-                                        <td>
-                                            <i class="fas fa-check"></i> CGT 1 <i class="fas fa-check"></i> MSJ 1 <br>
-                                            <i class="fas fa-check"></i> CGT 2 <i class="fas fa-check"></i> MSJ 2 <br>
-                                            <i class="fas fa-check"></i> CGT 3 <i class="fas fa-check"></i> MSJ 3 <br>
-                                        </td>
-                                        <td>Praise and Worship</td>
-                                        <td>Anak ini agak bandel</td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>10050</td>
-                                        <td>CG 77</td>
-                                        <td>Rommy Christensen</td>
-                                        <td>Aktif</td>
-                                        <td>Tanjung Duren</td>
-                                        <td>087884914473</td>
-                                        <td>
-                                            <i class="fas fa-check"></i> CGT 1 <i class="fas fa-check"></i> MSJ 1 <br>
-                                            <i class="fas fa-check"></i> CGT 2 <i class="fas fa-check"></i> MSJ 2 <br>
-                                            <i class="fas fa-check"></i> CGT 3 <i class="fas fa-check"></i> MSJ 3 <br>
-                                        </td>
-                                        <td>
-                                            <i class="fas fa-check"></i> CGT 1 <i class="fas fa-check"></i> MSJ 1 <br>
-                                            <i class="fas fa-check"></i> CGT 2 <i class="fas fa-check"></i> MSJ 2 <br>
-                                            <i class="fas fa-check"></i> CGT 3 <i class="fas fa-check"></i> MSJ 3 <br>
-                                        </td>
-                                        <td>Praise and Worship</td>
-                                        <td>Anak ini agak bandel</td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                    @foreach ($members as $member)
+                                        <tr>
+                                            <td>{{ $member->member_nij }}</td>
+                                            <td>CG {{ $member->connect_group->connect_group_number }}</td>
+                                            <td>{{ $member->member_fullname }}</td>
+                                            <td>
+                                                @if ($member->member_status == '0')
+                                                    TIDAK AKTIF
+                                                @else
+                                                    AKTIF
+                                                @endif
+                                            </td>
+                                            <td>{{ $member->member_address }}</td>
+                                            <td>{{ $member->member_phone }}</td>
+                                            <td>
+                                                <i class="fas @if($member->member_cgt_1 == '1') fa-check @else fa-times @endif"></i> CGT 1 <i class="fas @if($member->member_msj_1 == '1') fa-check @else fa-times @endif"></i> MSJ 1 <br>
+                                                <i class="fas @if($member->member_cgt_2 == '1') fa-check @else fa-times @endif"></i> CGT 2 <i class="fas @if($member->member_msj_2 == '1') fa-check @else fa-times @endif"></i> MSJ 2 <br>
+                                                <i class="fas @if($member->member_cgt_3 == '1') fa-check @else fa-times @endif"></i> CGT 3 <i class="fas @if($member->member_msj_3 == '1') fa-check @else fa-times @endif"></i> MSJ 3 <br>
+                                            </td>
+                                            <td>
+                                                <i class="fas @if($member->member_believe_jesus == '1') fa-check @else fa-times @endif"></i> Percaya Yesus <br><i class="fas @if($member->member_water_baptism == '1') fa-check @else fa-times @endif"></i> Baptis Selam<br>
+                                                <i class="fas @if($member->member_spirit_baptism == '1') fa-check @else fa-times @endif"></i> Baptis RK <br><i class="fas @if($member->member_cg_routine == '1') fa-check @else fa-times @endif"></i> Rutin CG<br>
+                                                <i class="fas @if($member->member_aog_routine == '1') fa-check @else fa-times @endif"></i> Rutin AOG
+                                            </td>
+                                            <td>
+                                                @foreach($member->ministries as $ministry)
+                                                    {{ $ministry->ministry_name }}
+                                                    @if(!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>{{ $member->member_other_remarks }}</td>
+                                            <td>
+                                                <form><button type="submit" formaction="{{ route('master_member.edit', $member) }}" formmethod="GET" class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button></form>
+                                                <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>

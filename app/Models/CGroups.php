@@ -13,4 +13,8 @@ class CGroups extends Model
     protected $primaryKey = "connect_group_id";
 
     protected $guarded = [];
+
+    public function members() {
+        return $this->hasMany(Member::class, 'connect_group_id', 'connect_group_id');
+    }
 }

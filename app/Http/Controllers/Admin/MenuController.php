@@ -61,12 +61,17 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'privilege_name' => 'required',
+            'menu_id' => 'required'
+        ]);
+
         $role_id = $request->role_id;
         $menu_id = $request->menu_id;
         $exists = DB::table('privileges')->where('role_id', $role_id)->where('menu_id', $menu_id)->exists();
         
         if(!$exists) {
-            $insert = Privilege::create([
+            Privilege::create([
                 'menu_id' => $menu_id,
                 'role_id' => $role_id,
                 'privilege_name' => $request->privilege_name
@@ -118,6 +123,8 @@ class MenuController extends Controller
      */
     public function destroy(Request $request)
     {
-        
+        $privilege_id = $request->privilege_id;
+        Privilege::destroy($privilege_id);
+        return redirect()->back();
     }
 }
