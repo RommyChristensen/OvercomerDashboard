@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MinistryController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TLController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,6 +64,14 @@ Route::prefix('admin')->group(function () {
             Route::get('/get_by_id', [CoachController::class, 'get_by_id'])->name('master_coaches.view_edit');
             Route::post('/edit', [CoachController::class, 'edit'])->name('master_coaches.edit');
             Route::delete('/delete_by_id', [CoachController::class, 'delete'])->name('master_coaches.delete_by_id');
+        });
+
+        Route::prefix('master_team_leaders')->group(function() {
+            Route::get('/', [TLController::class, 'view'])->name('admin.view_team_leaders');
+            Route::post('/add', [TLController::class, 'add'])->name('master_team_leaders.add');
+            Route::get('/get_by_id', [TLController::class, 'get_by_id'])->name('master_team_leaders.view_edit');
+            Route::post('/edit', [TLController::class, 'edit'])->name('master_team_leaders.edit');
+            Route::delete('/delete_by_id', [TLController::class, 'delete'])->name('master_team_leaders.delete_by_id');
         });
 
         Route::prefix('master_connect_groups')->group(function () {

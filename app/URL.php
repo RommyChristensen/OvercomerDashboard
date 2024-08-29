@@ -24,4 +24,7 @@ class URL {
 
     const URL_COACH_GET_BY_ID = "/admin/master_coaches/get_by_id";
     const URL_COACH_DESTROY_BY_ID = "/admin/master_coaches/delete_by_id";
+
+    const URL_TL_GET_BY_ID = "/admin/master_team_leaders/get_by_id";
+    const URL_TL_DESTROY_BY_ID = "/admin/master_team_leaders/delete_by_id";
 }
