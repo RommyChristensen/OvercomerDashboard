@@ -12,5 +12,7 @@ class Errors {
     // START - GENERAL ERROR
     const GENERAL_FAILED_KEY = "GENERAL_FAILED_KEY";
     const GENERAL_FAILED_ERROR_MESSAGE = "Something went wrong!";
+
+    const ERROR_EDIT_MEMBER_MESSAGE = "Failed to edit member data";
 }
 

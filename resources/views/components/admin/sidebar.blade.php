@@ -4,9 +4,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" aria-label="navbar-side-menu">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <img src="{{ asset('assets/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        <img src="{{ asset('assets/images/overcomers.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
-        <span class="brand-text font-weight-light">Dashboard</span>
+        <span class="brand-text font-weight-light">OVCMR Dashboard</span>
     </a>
 
     <!-- Sidebar -->
@@ -14,7 +14,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="#" class="d-block">Hello, Admin</a>
+                <a href="#" class="d-block">Welcome Home, {{ auth()->user()->fullname }}!</a>
             </div>
         </div>
 
@@ -29,39 +29,78 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.view_user') }}" class="nav-link {{ $nav_active == 'master-user' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Master Users
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.view_roles') }}" class="nav-link {{ $nav_active == 'view-roles' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-shapes"></i>
-                        <p>
-                            Master Roles
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.view_menus') }}" class="nav-link {{ $nav_active == 'view-menus' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-bars"></i>
-                        <p>
-                            Master Privileges
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.view_ministry') }}" class="nav-link {{ $nav_active == 'view-ministry' ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-place-of-worship"></i>
-                        <p>
-                            Master Ministries
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
+
+                @if (auth()->user()->username == 'superadmin')
+                    <li class="nav-item">
+                        <a href="{{ route('admin.view_user') }}" class="nav-link {{ $nav_active == 'master-user' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Master Users
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.view_roles') }}" class="nav-link {{ $nav_active == 'view-roles' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-shapes"></i>
+                            <p>
+                                Master Roles
+                            </p>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item">
+                        <a href="{{ route('admin.view_menus') }}" class="nav-link {{ $nav_active == 'view-menus' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-bars"></i>
+                            <p>
+                                Master Privileges
+                            </p>
+                        </a>
+                    </li> --}}
+                    <li class="nav-item">
+                        <a href="{{ route('admin.view_ministry') }}" class="nav-link {{ $nav_active == 'view-ministry' ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-place-of-worship"></i>
+                            <p>
+                                Master Ministries
+                            </p>
+                        </a>
+                    </li>
+                @endif
+
+                @foreach (session()->get('menus_active') as $menu)
+                    @if ($menu->menu_level >= session()->get('user_level'))
+                        @if(count($menu->children) == 0)
+                            <li class="nav-item">
+                                <a href="{{ route($menu->route_name) }}" class="nav-link {{ $nav_active == $menu->view_nav_active_name ? 'active' : '' }}">
+                                    <i class="nav-icon {{ $menu->menu_class }}"></i>
+                                    <p>
+                                        {{ $menu->menu_display_name }}
+                                    </p>
+                                </a>
+                            </li>
+                        @else
+                            <li class="nav-item menu-open">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon {{ $menu->menu_class }}"></i>
+                                    <p>
+                                        {{ $menu->menu_display_name }}
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @foreach ($menu->children as $child)
+                                        <li class="nav-item">
+                                            <a href="{{ route($child->route_name) }}" class="nav-link {{ $nav_active == $child->view_nav_active_name ? 'active' : '' }}">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>{{ $child->menu_display_name }}</p>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endif
+                    @endif
+                @endforeach
+    
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.view_connect_groups') }}" class="nav-link {{ $nav_active == 'view-connect-groups' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-house-user"></i>
                         <p>
@@ -70,7 +109,7 @@
                     </a>
                 </li>
                 <li class="nav-item menu-open">
-                    <a href="#" class="nav-link {{ ($nav_active == 'view-members' || $nav_active == 'add-member') ? 'active' : '' }}">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Master Members
@@ -91,9 +130,9 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="nav-item">
-                    <a href="#" class="nav-link bg-danger">
+                    <a href="{{ route('admin.logout') }}" class="nav-link bg-danger">
                         <i class="nav-icon fas fa-power-off"></i>
                         <p>
                             Logout

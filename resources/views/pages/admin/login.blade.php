@@ -18,7 +18,7 @@
 
 <div class="login-box">
   <div class="login-logo">
-    <a href=""><b>Overcomers</b> Master User</a>
+    <a href=""><b>Overcomers</b> Dashboard</a>
   </div>
   <!-- /.login-logo -->
   @error(Errors::LOGIN_AUTH_ERROR_KEY)

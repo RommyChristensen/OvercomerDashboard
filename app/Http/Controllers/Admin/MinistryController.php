@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 class MinistryController extends Controller
 {
     public function view(){
-        // TODO: QUERY WITH FILTERS
         $data = Ministry::all()->map(function($min, $key) {
             $min = array(
                 'ministry_name' => $min->ministry_name,

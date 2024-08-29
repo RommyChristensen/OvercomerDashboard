@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CGController;
+use App\Http\Controllers\Admin\CoachController;
 use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Auth\AuthController;
@@ -31,6 +32,7 @@ Route::prefix('admin')->group(function () {
     })->name('admin.view.login');
 
     Route::post('/login', [AuthController::class, 'login'])->name('admin.login');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
     Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', function () {
@@ -40,18 +42,27 @@ Route::prefix('admin')->group(function () {
         Route::prefix('master_user')->group(function () {
             Route::get('/', [UserController::class, 'view'])->name('admin.view_user');
             Route::post('/add', [UserController::class, 'add'])->name("master_user.add");
-            Route::get('/get_by_id', [UserController::class, 'getById'])->name("master_user.get_by_id");
-            Route::get('/delete_by_id', [UserController::class, 'destroyById'])->name("master_user.delete_by_id");
+            Route::post('/reset_password', [UserController::class, 'resetPassword'])->name("master_user.reset_password");
+            Route::post('/destroy_by_id', [UserController::class, 'destroyById'])->name("master_user.destroy_by_id");
+            Route::get('/change_password', [UserController::class, 'viewChangePassword'])->name('master_user.view_change_password');
+            Route::post('/change_password', [UserController::class, 'changePassword'])->name('master_user.change_password');
         });
     
         Route::prefix('master_members')->group(function () {
             Route::get('/', [MemberController::class, 'view'])->name('admin.view_members');
-    
             Route::get('/add', [MemberController::class, 'view_add'])->name('admin.view.add_member');
-
             Route::post('/add', [MemberController::class, 'add'])->name('master_member.add');
+            Route::get('/edit/{member}', [MemberController::class, 'view_edit'])->name('master_member.view_edit');
+            Route::post('/edit', [MemberController::class, 'edit'])->name('master_member.edit');
+            Route::post('/delete_by_id', [MemberController::class, 'destroyById'])->name("master_member.delete_by_id");
+        });
 
-            Route::get('/edit/{member}', [MemberController::class, 'view_edit'])->name('master_member.edit');
+        Route::prefix('master_coaches')->group(function() {
+            Route::get('/', [CoachController::class, 'view'])->name('admin.view_coaches');
+            Route::post('/add', [CoachController::class, 'add'])->name('master_coaches.add');
+            Route::get('/get_by_id', [CoachController::class, 'get_by_id'])->name('master_coaches.view_edit');
+            Route::post('/edit', [CoachController::class, 'edit'])->name('master_coaches.edit');
+            Route::delete('/delete_by_id', [CoachController::class, 'delete'])->name('master_coaches.delete_by_id');
         });
 
         Route::prefix('master_connect_groups')->group(function () {

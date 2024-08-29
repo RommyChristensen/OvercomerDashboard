@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrivileges extends Migration
+class CreateTableTeamLeaders extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreatePrivileges extends Migration
      */
     public function up()
     {
-        Schema::create('privileges', function (Blueprint $table) {
-            $table->increments("privilege_id");
-            $table->text("privilege_name");
-            $table->integer("role_id")->unsigned();
-            $table->integer("menu_id")->unsigned();
+        Schema::create('team_leaders', function (Blueprint $table) {
+            $table->increments('tl_id');
+            $table->text('team_leader_name')->nullable();
+            $table->integer('coach_id')->nullable();
             $table->timestamps();
-
         });
     }
 

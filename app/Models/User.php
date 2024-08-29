@@ -13,4 +13,8 @@ class User extends Authenticatable
     {
         return $this->password;
     }
+
+    public function member() {
+        return $this->hasOne(Member::class, 'member_id', 'member_id');
+    }
 }

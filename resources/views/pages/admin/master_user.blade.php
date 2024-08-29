@@ -33,7 +33,7 @@
                 <div class="col-12">
                     <form action="{{ route('master_user.add') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="cg_id" id="inputCGId">
+                    <input type="hidden" name="member_id" id="inputMemberId">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Add User</h3>
@@ -46,29 +46,39 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="inputUsernameUser">Username</label>
-                                <input type="text" name="username" 
+                                <input type="text" name="username"
                                 class="
                                     form-control
                                     @error('username')
                                         is-invalid
                                     @enderror
-                                " 
-                                id="inputUsernameUser" placeholder="Enter username">
+                                "
+                                value="{{ old('username') }}"
+                                id="inputUsernameUser" placeholder="Enter Username" name="username">
                                 @error('username')
                                     <span id="input-cg_location-error" class="error invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label for="inputFullNameUser">Full Name</label>
-                                <input type="text" class="form-control" id="inputFullNameUser" placeholder="Enter username">
+                                <input type="text" class="
+                                    form-control
+                                    @error('fullname')
+                                        is-invalid
+                                    @enderror
+                                "
+                                value="{{ old('fullname') }}"
+                                id="inputFullNameUser" placeholder="Enter Fullname" name="fullname">
+                                @error('fullname')
+                                    <span id="input-cg_location-error" class="error invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label>Assign To (ini generate otomatis utk member yg belum punya akun)</label>
-                                <select class="form-control select2" style="width: 100%;">
-                                    <option value="1">Member 1 - CGL</option>
-                                    <option value="2">Member 2 - CGL</option>
-                                    <option value="3">Member 3 - CGL</option>
-                                    <option value="4">Member 4 - Sponsor</option>
+                                <select class="form-control select2" style="width: 100%;" name="member_id">
+                                    @foreach ($membersNotRegistered as $m)
+                                        <option value="{{ $m->member_id }}">{{ $m->member_fullname }} - {{ $m->role->role_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-success btn-sm">Add&nbsp;&nbsp;<i class="fas fa-plus"></i></button>
@@ -94,44 +104,31 @@
                                     <tr>
                                         <th>Username</th>
                                         <th>Full Name</th>
-                                        <th>User Role</th>
+                                        <th>Member Name</th>
+                                        <th>Member Role</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>rommy123</td>
-                                        <td>Rommy Christensen</td>
-                                        <td>Sponsor</td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>rommy123</td>
-                                        <td>Rommy Christensen</td>
-                                        <td>Sponsor</td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>rommy123</td>
-                                        <td>Rommy Christensen</td>
-                                        <td>Administrator</td>
-                                        <td>
-                                            <button class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                    @foreach ($users as $u)
+                                        <tr>
+                                            <td>{{ $u->username }}</td>
+                                            <td>{{ $u->fullname }}</td>
+                                            <td>{{ $u->member->member_fullname }}</td>
+                                            <td>{{ $u->member->role->role_name }}</td>
+                                            <td>
+                                                <button class="btn btn-xs btn-info btn-edit" id="btn-reset-pass-{{ $u->user_id }}" @if($u->is_password_default) disabled @endif onclick="editClick({{$u->user_id}})" data-toggle="tooltip" title="Reset Password"><i class="fas fa-repeat"></i></button>
+                                                <button class="btn btn-xs btn-danger btn-delete" onclick="deleteClick({{$u->user_id}})" data-toggle="tooltip" title="Delete User '{{ $u->username }}'"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <th>Username</th>
                                         <th>Full Name</th>
-                                        <th>User Role</th>
+                                        <th>Member Name</th>
+                                        <th>Member Role</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -175,7 +172,61 @@
         });
 
         //Initialize Select2 Elements
-        $('.select2').select2()
+        $('.select2').select2();
+
+        $('[data-toggle="tooltip"]').tooltip();
     });
+
+    const deleteClick = id => {
+        showConfirmationDialog("Delete Data User", "Are you sure to delete this data?", "warning",
+        function() {
+            $.ajax({
+                method: 'POST',
+                url: '{{ URL::URL_USER_DESTROY_BY_ID }}',
+                data: {
+                    user_id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: res => {
+                    console.log(res);
+                    successToast('Success Delete User');
+                    setTimeout(() => {
+                        showLoading(false);
+                        reloadPage();
+                    }, parseInt(Math.floor(Math.random() * 1000)));
+                },
+                err: err => {
+
+                    setTimeout(() => {
+                        showLoading(false);
+                        reloadPage();
+                    }, parseInt(Math.floor(Math.random() * 1000)));
+                }
+            })
+        },
+        function() { });
+    }
+
+    const editClick = id => {
+        showLoading(true);
+        setTimeout(() => {
+            $.ajax({
+                method: 'POST',
+                url: '{{ URL::URL_USER_RESET_PASSWORD }}',
+                data: { 
+                    user_id: id,
+                    _token: "{{ csrf_token() }}"
+                    },
+                success: res => {
+                    showLoading(false);
+                    $("#btn-reset-pass-"+id).attr('disabled', 'true');
+                    successToast('Success Reset Password');
+                },
+                err: err => {
+                    showLoading(false);
+                }
+            })
+        }, parseInt(Math.floor(Math.random() * 3000)));
+    }
 </script>
 @endsection

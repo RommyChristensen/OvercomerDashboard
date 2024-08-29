@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrivileges extends Migration
+class CreateTableCoaches extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreatePrivileges extends Migration
      */
     public function up()
     {
-        Schema::create('privileges', function (Blueprint $table) {
-            $table->increments("privilege_id");
-            $table->text("privilege_name");
-            $table->integer("role_id")->unsigned();
-            $table->integer("menu_id")->unsigned();
+        Schema::create('coaches', function (Blueprint $table) {
+            $table->increments('coach_id');
+            $table->text('coach_name')->nullable();
+            $table->integer('connect_group_id')->nullable();
             $table->timestamps();
-
         });
     }
 
@@ -30,6 +28,6 @@ class CreatePrivileges extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('privileges');
+        Schema::dropIfExists('coaches');
     }
 }

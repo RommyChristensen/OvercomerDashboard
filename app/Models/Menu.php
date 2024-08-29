@@ -12,4 +12,12 @@ class Menu extends Model
     protected $primaryKey = "menu_id";
 
     protected $guarded = [];
+
+    public function children() {
+        return $this->hasMany(Menu::class, 'menu_parent_id');
+    }
+
+    public function parent() {
+        return $this->belongsTo(Menu::class, 'menu_parent_id');
+    }
 }

@@ -20,8 +20,6 @@ class CreateTableMemberMinistry extends Migration
             $table->date('member_ministry_date_start');
             $table->timestamps();
             
-            $table->foreign("member_id")->references("member_id")->on("members");
-            $table->foreign("ministry_id")->references("ministry_id")->on("ministries");
         });
     }
 

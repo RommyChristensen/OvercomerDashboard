@@ -127,4 +127,35 @@ class MenuController extends Controller
         Privilege::destroy($privilege_id);
         return redirect()->back();
     }
+
+    /*
+        PENJELASAN LEVEL MENU
+        
+        MENU LEVEL 1 = HANYA DAPAT DIAKSES OLEH ADMINISTRATOR / SUPER USER
+        MENU LEVLL 2 = HANYA DAPAT DIAKSES OLEH USER YANG DIKAITKAN DENGAN MEMBER ROLE TL
+        MENU LEVEL 3 = HANYA DAPAT DIAKSES OLEH USER YANG DIKAITKAN DENGAN MEMBER ROLE TL, COACH
+        MENU LEVEL 4 = HANYA DAPAT DIAKSES OLEH USER YANG DIKAITKAN DENGAN MEMBER ROLE COACH, CGL
+
+        TIDAK SEMUA MENU DITERAPKAN LEVEL" SEPERTI DIATAS, HANYA MENU" YANG BERSIFAT MASTER DATA
+
+        LIST MENU FOR ADMIN ONLY
+            - MASTER USER
+            - MASTER ROLES
+            - MASTER PRIVILEGES
+            - MASTER MINISTRIES
+        LIST MENU FOR USERS
+            - TL
+                * MASTER COACH (TBD)
+                * MASTER CG
+                * MASTER MEMBER
+            - COACH
+                * MASTER CG
+                * MASTER MEMBER
+                * ADD MEMBER
+            - CGL
+                * MASTER MEMBER
+                * ADD MEMBER
+
+        
+    */
 }

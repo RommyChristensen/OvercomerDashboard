@@ -43,6 +43,9 @@
                         <!-- /.card-header -->
                         <form method="post" action="{{ route('master_member.add') }}">
                             @csrf
+                            @if(isset($edit_mode))
+                                <input type="hidden" name="member_id" value="{{ $member->member_id }}">
+                            @endif
                             <div class="card-body">
                                 <div class="row"> 
                                     <div class="col-md-6"> <!-- NIJ -->
@@ -85,7 +88,7 @@
                                                     @isset($cg)
                                                         @foreach ($cg as $c)
                                                             <option value="{{$c['connect_group_id']}}"
-                                                                @if ($member->connect_group->connect_group_number == $c['connect_group_number'])
+                                                                @if (isset($member->connect_group) && $member->connect_group->connect_group_number == $c['connect_group_number'])
                                                                     selected
                                                                 @endif
                                                             >CG {{ $c['connect_group_number'] }}</option>
@@ -283,8 +286,8 @@
                                                 </select>
                                             @else
                                                 <select class="form-control select2" style="width: 100%;" name="status">
-                                                    <option value="0">Active</option>
-                                                    <option value="1">Inactive</option>
+                                                    <option value="1">Active</option>
+                                                    <option value="0">Inactive</option>
                                                 </select>
                                             @endif
                                         </div>
@@ -563,21 +566,41 @@
                                 <div class="row">
                                     <div class="col-md-6"> <!-- MINISTRIES -->
                                         <div class="form-group">
-                                            {{-- TODO: FIX MINISTRY MULTI MINISTRY --}}
                                             <label>Ministry</label>
-                                            <select class="form-control select2" style="width: 100%;" name="ministry">
-                                                @isset($ministries)
-                                                    @foreach ($ministries as $m)
-                                                        <option value="{{$m['ministry_id']}}">{{ $m['ministry_name'] }}</option>
-                                                    @endforeach
-                                                @endisset
-                                            </select>
+
+                                            @if (isset($edit_mode))
+                                                <select class="form-control select2" style="width: 100%;" name="ministry">
+                                                    @isset($ministries)
+                                                        @foreach ($ministries as $m)
+                                                            <option value="{{$m['ministry_id']}}"
+                                                                @if ($member->ministry_id == $m['ministry_id'])
+                                                                    selected
+                                                                @endif
+                                                            >{{ $m['ministry_name'] }}</option>
+                                                        @endforeach
+                                                    @endisset
+                                                </select>
+                                            @else
+                                                <select class="form-control select2" style="width: 100%;" name="ministry">
+                                                    @isset($ministries)
+                                                        @foreach ($ministries as $m)
+                                                            <option value="{{$m['ministry_id']}}">{{ $m['ministry_name'] }}</option>
+                                                        @endforeach
+                                                    @endisset
+                                                </select>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-6"> <!-- MINISTRY REMARKS -->
                                         <div class="form-group">
                                             <label for="inputMinistryRemark">Remark</label>
-                                            <input type="text" class="form-control" id="inputMinistryRemark" placeholder="Ministry Remark" name="ministry_remark">
+                                            @if(isset($edit_mode))
+                                                <input type="text"
+                                                value="{{ $member->member_ministry_remarks }}"
+                                                class="form-control" id="inputMinistryRemark" placeholder="Ministry Remark" name="ministry_remark">
+                                            @else
+                                                <input type="text" class="form-control" id="inputMinistryRemark" placeholder="Ministry Remark" name="ministry_remark">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -675,7 +698,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-success btn-sm">Add&nbsp;&nbsp;<i class="fas fa-plus"></i></button>
+                                        <button type="submit" 
+                                            @if(isset($edit_mode))
+                                                formaction="{{ route('master_member.edit') }}"
+                                            @endif
+                                        class="btn btn-success btn-sm">@if(isset($edit_mode))Edit @else Add @endif&nbsp;&nbsp;<i class="fas fa-plus"></i></button>
                                     </div>
                                 </div>
                             </div>

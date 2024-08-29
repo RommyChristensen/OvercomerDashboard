@@ -66,6 +66,7 @@
                                         <th>Connect Group</th>
                                         <th>Full Name</th>
                                         <th>Status</th>
+                                        <th>Role</th>
                                         <th>Address</th>
                                         <th>Phone Number</th>
                                         <th>CGT & MSJ</th>
@@ -79,15 +80,22 @@
                                     @foreach ($members as $member)
                                         <tr>
                                             <td>{{ $member->member_nij }}</td>
-                                            <td>CG {{ $member->connect_group->connect_group_number }}</td>
+                                            <td>
+                                                @if(isset($member->connect_group))
+                                                    CG {{ $member->connect_group->connect_group_number }}
+                                                @else
+                                                    NONE
+                                                @endif
+                                            </td>
                                             <td>{{ $member->member_fullname }}</td>
                                             <td>
-                                                @if ($member->member_status == '0')
+                                                @if ($member->member_is_active == '0')
                                                     TIDAK AKTIF
                                                 @else
                                                     AKTIF
                                                 @endif
                                             </td>
+                                            <td>{{ $member->role->role_name }}</td>
                                             <td>{{ $member->member_address }}</td>
                                             <td>{{ $member->member_phone }}</td>
                                             <td>
@@ -110,8 +118,8 @@
                                             </td>
                                             <td>{{ $member->member_other_remarks }}</td>
                                             <td>
-                                                <form><button type="submit" formaction="{{ route('master_member.edit', $member) }}" formmethod="GET" class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button></form>
-                                                <button class="btn btn-xs btn-danger"><i class="fas fa-trash"></i></button>
+                                                <form><button type="submit" formaction="{{ route('master_member.view_edit', $member) }}" formmethod="GET" class="btn btn-xs btn-info"><i class="fas fa-edit"></i></button></form>
+                                                <button type="button" class="btn btn-xs btn-danger" onclick="deleteClick({{$member->member_id}})"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -122,12 +130,14 @@
                                         <th>Connect Group</th>
                                         <th>Full Name</th>
                                         <th>Status</th>
+                                        <th>Role</th>
                                         <th>Address</th>
                                         <th>Phone Number</th>
                                         <th>CGT & MSJ</th>
                                         <th>5M</th>
                                         <th>Ministry</th>
                                         <th>Notes</th>
+                                        <th>Action</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -146,6 +156,29 @@
 
 @section('add_on_scripts')
 <script>
+    const deleteClick = id => {
+        showConfirmationDialog("Delete Data Member", "Are you sure to delete this data?", "warning",
+        function() {
+            $.ajax({
+                method: 'POST',
+                url: '{{ URL::URL_MEMBER_DESTROY_BY_ID }}',
+                data: { 
+                    member_id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: res => {
+                    showLoading(false);
+                    window.location.reload();
+                },
+                err: err => {
+                    showLoading(false);
+                    window.location.reload();
+                }
+            })
+        },
+        function() { });
+    }
+
     $(function () {
         $("#member-table").DataTable({
             // "responsive": true,
