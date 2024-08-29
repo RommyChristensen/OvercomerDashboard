@@ -14,7 +14,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="info">
-                <a href="#" class="d-block">Welcome Home, {{ auth()->user()->fullname }}!</a>
+                <a href="#" class="d-block">Welcome Home, {{ auth()->user()->fullname }}!<br>You are a <b>{{ auth()->user()->member->role->role_name ?? 'Super Admin' }}</b></a>
             </div>
         </div>
 
