@@ -31,7 +31,7 @@ class CoachController extends Controller
         $coach->coach_name = $dataValidated['coach_name'];
         $coach->save();
 
-        if(count($req->connect_groups) > 0) {
+        if(isset($req->connect_groups) && count($req->connect_groups) > 0) {
             foreach($req->connect_groups as $cg) {
                 $cg = CGroups::find($cg);
                 $cg->coach_id = $coach->coach_id;
@@ -54,7 +54,7 @@ class CoachController extends Controller
         $coach->coach_name = $req['coach_name'];
         $coach->save();
 
-        if(count($req->connect_groups) > 0) {
+        if(isset($req->connect_groups) && count($req->connect_groups) > 0) {
             CGroups::where('coach_id', $req['coach_id'])->update(['coach_id' => NULL]);
             foreach($req->connect_groups as $cg) {
                 $cg = CGroups::find($cg);
